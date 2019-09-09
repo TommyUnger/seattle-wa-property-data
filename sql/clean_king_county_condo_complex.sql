@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_condo_complex;
+CREATE TABLE property.king_county_condo_complex
+AS
 SELECT 
 major::INT major
 , complex_type::SMALLINT complex_type
@@ -28,3 +31,9 @@ major::INT major
 , direction_suffix::VARCHAR(200) direction_suffix
 , LEFT(regexp_replace(zip_code, '[^0-9]+', '0', 'g'), 5)::INT zip_code
 FROM import.king_county_condo_complex
+WHERE major <> 'Major'
+;
+
+CREATE INDEX IDX_property_king_county_condo_complex_pin
+ON property.king_county_condo_complex(pin)
+;

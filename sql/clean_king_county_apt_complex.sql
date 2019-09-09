@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS property.king_county_apt_complex;
-
 CREATE TABLE property.king_county_apt_complex
 AS
 SELECT 

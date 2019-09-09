@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_condo_unit;
+CREATE TABLE property.king_county_condo_unit
+AS
 SELECT 
 major::INT major
 , minor::SMALLINT minor
@@ -32,3 +35,9 @@ major::INT major
 , pkg_garage::SMALLINT pkg_garage
 , pkg_basement::SMALLINT pkg_basement
 FROM import.king_county_condo_unit
+WHERE major <> 'Major'
+;
+
+CREATE INDEX IDX_property_king_county_condo_unit_pin
+ON property.king_county_condo_unit(pin)
+;

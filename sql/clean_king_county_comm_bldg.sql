@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_comm_bldg;
+CREATE TABLE property.king_county_comm_bldg
+AS
 SELECT 
 major::INT major
 , minor::SMALLINT minor
@@ -25,3 +28,9 @@ major::INT major
 , pcnt_complete::SMALLINT pct_complete
 , CASE WHEN elevators = 'Y' THEN 1 ELSE 0 END::BOOL elevators
 FROM import.king_county_comm_bldg
+WHERE major <> 'Major'
+;
+
+CREATE INDEX IDX_property_king_county_comm_bldg_pin
+ON property.king_county_comm_bldg(pin)
+;

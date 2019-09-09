@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_parcel_geo;
+CREATE TABLE property.king_county_parcel_geo
+AS
 select 
 regexp_replace(major, '[^0-9]+', '0', 'g')::INT major
 , regexp_replace(minor, '[^0-9]+', '0', 'g')::SMALLINT minor
@@ -33,3 +36,8 @@ regexp_replace(major, '[^0-9]+', '0', 'g')::INT major
 , ST_TRANSFORM(geom, 4269) geom
 , ST_Centroid(ST_TRANSFORM(geom, 4269)) geom_centroid
 FROM import.king_county_parcel_geo
+;
+
+CREATE INDEX IDX_property_king_county_parcel_geo_pin
+ON property.king_county_parcel_geo(pin)
+;

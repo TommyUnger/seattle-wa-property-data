@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_building;
+CREATE TABLE property.king_county_building
+AS
 SELECT 
 major::INT major
 , minor::SMALLINT minor
@@ -34,3 +37,9 @@ major::INT major
 , fp_freestanding::SMALLINT fp_freestanding
 , fp_additional::SMALLINT fp_additional
 FROM import.king_county_building
+WHERE major <> 'Major'
+;
+
+CREATE INDEX IDX_property_king_county_building_pin
+ON property.king_county_building(pin)
+;

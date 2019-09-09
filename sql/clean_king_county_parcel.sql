@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_parcel;
+CREATE TABLE property.king_county_parcel
+AS
 SELECT 
 major::INT major
 , minor::SMALLINT minor
@@ -70,3 +73,9 @@ major::INT major
 , CASE WHEN water_problems = 'Y' THEN 1 ELSE 0 END::BOOL water_problems
 , CASE WHEN transp_concurrency = 'Y' THEN 1 ELSE 0 END::BOOL transp_concurrency
 FROM import.king_county_parcel
+WHERE major <> 'Major'
+;
+
+CREATE INDEX IDX_property_king_county_parcel_pin
+ON property.king_county_parcel(pin)
+;

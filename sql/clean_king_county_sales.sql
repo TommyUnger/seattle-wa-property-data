@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property.king_county_sales;
+CREATE TABLE property.king_county_sales
+AS
 select excise_tax_nbr::INT excise_tax_nbr
 , major::INT major
 , minor::SMALLINT minor
@@ -23,3 +26,5 @@ LEFT JOIN property.king_county_lookup lu2 ON lu2.lu_type = 2 AND lu1.lu_item = d
 LEFT JOIN property.king_county_lookup lu6 ON lu6.lu_type = 6 AND lu6.lu_item = d.sale_instrument::SMALLINT
 LEFT JOIN property.king_county_lookup lu5 ON lu5.lu_type = 5 AND lu5.lu_item = d.sale_reason::SMALLINT
 LEFT JOIN property.king_county_lookup lu4 ON lu4.lu_type = 4 AND lu4.lu_item = d.property_class::SMALLINT
+WHERE major <> 'Major'
+;
