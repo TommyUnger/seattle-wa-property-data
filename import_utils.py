@@ -51,14 +51,14 @@ def load_csv_to_postgres(table_name, file_name):
     log_it("create table: %s" % table_name)
     run_sql('DROP TABLE IF EXISTS %s; CREATE TABLE %s(%s)' % (table_name, 
                                                               table_name, 
-                                                              ', '.join([d + ' TEXT' for d in cols])))
+                                                              ', '.join(['\\"' + d + '\\" TEXT' for d in cols])))
     log_it("load data")
     load_data_from_file(table_name, file_name)
     log_it("trim data")
-    run_sql("UPDATE %s SET %s" % (table_name, ', '.join(['%s=trim(%s)' % (d, d) for d in cols])))
+    run_sql("UPDATE %s SET %s" % (table_name, ', '.join(['\\"%s\\"=trim(\\"%s\\")' % (d, d) for d in cols])))
     log_it("empty to null")
     run_sql("UPDATE %s SET %s" % (table_name, 
-                                ', '.join(['%s=CASE WHEN %s = \'\' THEN NULL ELSE %s END' % (d, d, d) for d in cols])))
+                                ', '.join(['\\"%s\\"=CASE WHEN \\"%s\\" = \'\' THEN NULL ELSE \\"%s\\" END' % (d, d, d) for d in cols])))
     log_it("done load_csv_to_postgres %s" % table_name)
 
 
