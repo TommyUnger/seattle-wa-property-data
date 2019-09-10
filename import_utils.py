@@ -32,8 +32,8 @@ def run_sql(sql):
     run_command(cmd)
     log_it("done running sql")
 
-def load_data_from_file(table_name, file_name):
-    cmd = "cat %s | psql -U postgres -d work -c \"SET CLIENT_ENCODING='LATIN1'; COPY %s FROM STDIN WITH CSV DELIMITER ',' QUOTE '\\\"'\"" % (file_name, table_name)
+def load_data_from_file(table_name, file_name, delim=','):
+    cmd = "cat %s | psql -U postgres -d work -c \"SET CLIENT_ENCODING='LATIN1'; COPY %s FROM STDIN WITH CSV DELIMITER '%s' QUOTE '\\\"'\"" % (file_name, table_name, delim)
     run_command(cmd)
 
 def load_csv_to_postgres(table_name, file_name):
