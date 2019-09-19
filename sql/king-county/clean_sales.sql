@@ -22,7 +22,7 @@ select excise_tax_nbr::INT excise_tax_nbr
 , string_to_array(regexp_replace(sale_warning, '[^0-9 ]+', '0', 'g'), ' ')::integer[] sale_warnings
 FROM import.king_county_sales d
 LEFT JOIN property.king_county_lookup lu1 ON lu1.lu_type = 1 AND lu1.lu_item = d.property_type::SMALLINT
-LEFT JOIN property.king_county_lookup lu2 ON lu2.lu_type = 2 AND lu1.lu_item = d.principal_use::SMALLINT
+LEFT JOIN property.king_county_lookup lu2 ON lu2.lu_type = 2 AND lu2.lu_item = d.principal_use::SMALLINT
 LEFT JOIN property.king_county_lookup lu6 ON lu6.lu_type = 6 AND lu6.lu_item = d.sale_instrument::SMALLINT
 LEFT JOIN property.king_county_lookup lu5 ON lu5.lu_type = 5 AND lu5.lu_item = d.sale_reason::SMALLINT
 LEFT JOIN property.king_county_lookup lu4 ON lu4.lu_type = 4 AND lu4.lu_item = d.property_class::SMALLINT

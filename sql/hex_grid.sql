@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS property.hex_grid;
+
 CREATE TABLE property.hex_grid
 AS
 SELECT row_number()over() id
@@ -8,7 +9,23 @@ SELECT row_number()over() id
 FROM (
 SELECT ST_transform(geom, 4269) geom
 FROM
-(select hexbin(1000, st_transform(st_setsrid(st_expand((SELECT ST_Extent(geom_centroid) FROM property.king_county_parcel_geo), 0.1), 4269), 900913)) geom) g
+(select hexbin(1000, st_transform(st_setsrid(st_expand((
+SELECT ST_Extent(geom_centroid)
+FROM
+(
+SELECT geom_centroid
+FROM property.king_county_parcel_geo
+UNION
+SELECT geom_centroid
+FROM property.kitsap_county_parcel_geo
+UNION
+SELECT geom_centroid
+FROM property.pierce_county_parcel_geo
+UNION
+SELECT geom_centroid
+FROM property.snohomish_county_parcel_geo
+)
+), 0.1), 4269), 900913)) geom) g
 ) t
 ;
 

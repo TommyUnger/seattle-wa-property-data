@@ -62,9 +62,9 @@ def load_csv_to_postgres(table_name, file_name):
     log_it("done load_csv_to_postgres %s" % table_name)
 
 
-def run_clean_script(table_name):
-    log_it("run_clean_script %s" % table_name)
-    sql = open("sql/clean_%s.sql" % table_name).read()
+def run_clean_script(script_name):
+    log_it("run_clean_script %s" % script_name)
+    sql = open(script_name).read()
     run_sql(sql)
     log_it("run_clean_script complete")
 
